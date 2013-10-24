@@ -19,6 +19,8 @@
 		3CE18A451819005300B31F54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A2D1819005300B31F54 /* UIKit.framework */; };
 		3CE18A4D1819005300B31F54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3CE18A4B1819005300B31F54 /* InfoPlist.strings */; };
 		3CE18A4F1819005300B31F54 /* TBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE18A4E1819005300B31F54 /* TBoxTests.m */; };
+		3CE18A5B1819013900B31F54 /* TBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE18A591819013900B31F54 /* TBMainViewController.m */; };
+		3CE18A5C1819013900B31F54 /* TBMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE18A5A1819013900B31F54 /* TBMainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,9 @@
 		3CE18A4A1819005300B31F54 /* TBoxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBoxTests-Info.plist"; sourceTree = "<group>"; };
 		3CE18A4C1819005300B31F54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3CE18A4E1819005300B31F54 /* TBoxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBoxTests.m; sourceTree = "<group>"; };
+		3CE18A581819013900B31F54 /* TBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMainViewController.h; sourceTree = "<group>"; };
+		3CE18A591819013900B31F54 /* TBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMainViewController.m; sourceTree = "<group>"; };
+		3CE18A5A1819013900B31F54 /* TBMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBMainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +116,9 @@
 				3CE18A391819005300B31F54 /* TBAppDelegate.m */,
 				3CE18A3B1819005300B31F54 /* Images.xcassets */,
 				3CE18A301819005300B31F54 /* Supporting Files */,
+				3CE18A581819013900B31F54 /* TBMainViewController.h */,
+				3CE18A591819013900B31F54 /* TBMainViewController.m */,
+				3CE18A5A1819013900B31F54 /* TBMainViewController.xib */,
 			);
 			path = TBox;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CE18A5C1819013900B31F54 /* TBMainViewController.xib in Resources */,
 				3CE18A341819005300B31F54 /* InfoPlist.strings in Resources */,
 				3CE18A3C1819005300B31F54 /* Images.xcassets in Resources */,
 			);
@@ -242,6 +251,7 @@
 			files = (
 				3CE18A3A1819005300B31F54 /* TBAppDelegate.m in Sources */,
 				3CE18A361819005300B31F54 /* main.m in Sources */,
+				3CE18A5B1819013900B31F54 /* TBMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +452,7 @@
 				3CE18A541819005300B31F54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3CE18A551819005300B31F54 /* Build configuration list for PBXNativeTarget "TBoxTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +461,7 @@
 				3CE18A571819005300B31F54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
