@@ -8,6 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBMainViewController : UIViewController
+@interface TBMainViewController : UIViewController<UIPickerViewDataSource,UIPickerViewDelegate>{
+
+    IBOutlet UISegmentedControl *_mainSegment;
+    NSArray *loanMonthArray;
+//    IBOutlet UIPickerView *_pickView;
+    
+    //first segment
+    IBOutlet UITextField *_DKMoneyLabel;
+    IBOutlet UIButton *_DKYearButton;
+    IBOutlet UIButton *_DKFeeLabel;
+    IBOutlet UISegmentedControl *_DKMethod;
+    IBOutlet UIButton *_DK_Done;
+    
+    //second segment
+    
+    //third segment
+    
+}
 
 @end
