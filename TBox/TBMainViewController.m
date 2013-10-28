@@ -8,6 +8,7 @@
 
 #import "TBMainViewController.h"
 #import "TBMonthListViewController.h"
+#import "TBLendingRatesViewController.h"
 
 @interface TBMainViewController ()
 {
@@ -40,6 +41,7 @@
 }
 -(IBAction)firstViewButtonAction:(id)sender;
 -(IBAction)selectMonthList:(id)sender;
+-(IBAction)selectLendingRates:(id)sender;
 
 -(float)getBenXiMoney:(NSInteger)money year:(NSInteger)year;
 
@@ -59,27 +61,62 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    _mainSegment.selectedSegmentIndex = 1;
 //    NSString *monthStr = [NSString stringWithFormat:@"%d",row];
 //    [loanParameter setObject: monthStr forKey:@"month"];
     // Do any additional setup after loading the view from its nib.
     loanMonthArray = [[NSArray alloc]initWithObjects:@"半年(6个月)",@"一年",@"二年",@"三年",@"四年",@"五年",@"六年",@"七年",@"八年",@"九年",@"十年",
                       @"十一年",@"十二年",@"十三年",@"十四年",@"十五年",@"十六年",@"十七年",@"十八年",@"十九年",@"二十年",@"二十年",@"二十一年",@"二十二年",@"二十三年",@"二十四年",@"二十五年",@"二十六年",@"二十七年",@"二十八年",@"二十九年",@"三十年",nil];
     
+    ratesArray = [[NSArray alloc]initWithObjects:@"12年7月6日基准利率",@"12年7月6日优惠利率(85折)",
+                  @"12年7月6日优惠利率(9折)",@"12年7月6日上浮利率(1.1倍)", nil];
+    
+    [_mainSegment addTarget:self action:@selector(valueChanged:) forControlEvents: UIControlEventValueChanged];
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     NSLog(@"will appear");
+    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    NSString *monthValue = (NSString*)[loanParameter objectForKey:@"month"];
+    NSInteger month = [monthValue integerValue];
+    monthValue = [loanMonthArray objectAtIndex:month];
+    [_DKYearButton setTitle:monthValue forState:UIControlStateNormal];
+    
+    NSString *ratesValue = (NSString *)[loanParameter objectForKey:@"rates"];
+    NSInteger rates = [ratesValue integerValue];
+    ratesValue = [ratesArray objectAtIndex:rates];
+    [_DKFeeLabel setTitle:ratesValue forState:UIControlStateNormal];
+}
+
+- (void)valueChanged:(UISegmentedControl *)segment {
+    
+    if(segment.selectedSegmentIndex == 0) {
+        NSLog(@"segment selected 0");
+
+        //action for the first button (All)
+    }else if(segment.selectedSegmentIndex == 1){
+        NSLog(@"segment selected 1");
+        //action for the second button (Present)
+    }else if(segment.selectedSegmentIndex == 2){
+        NSLog(@"segment selected 2");
+
+        //action for the third button (Missing)
+    }
 }
 
 //first view done
 -(IBAction)firstViewButtonAction:(id)sender{
    
-//    NSInteger money = [_DKMoneyLabel.text integerValue];
     
 }
 -(IBAction)selectMonthList:(id)sender{
     TBMonthListViewController *monthListViewController = [[TBMonthListViewController alloc]init];
     [self.navigationController pushViewController:monthListViewController animated:YES];
+}
+-(IBAction)selectLendingRates:(id)sender{
+    TBLendingRatesViewController *ratesViewController = [[TBLendingRatesViewController alloc]init];
+    [self.navigationController pushViewController:ratesViewController animated:YES];
+    
 }
 
 /*
