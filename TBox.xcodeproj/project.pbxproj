@@ -23,6 +23,10 @@
 		3CE18A4F1819005300B31F54 /* TBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE18A4E1819005300B31F54 /* TBoxTests.m */; };
 		3CE18A5B1819013900B31F54 /* TBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE18A591819013900B31F54 /* TBMainViewController.m */; };
 		3CE18A5C1819013900B31F54 /* TBMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE18A5A1819013900B31F54 /* TBMainViewController.xib */; };
+		3CEC3D7D181F5DC4006E6D6F /* loanCountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC3D7C181F5DC4006E6D6F /* loanCountCell.xib */; };
+		3CEC3D7F181F6650006E6D6F /* loanYearCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC3D7E181F6650006E6D6F /* loanYearCell.xib */; };
+		3CEC3D81181F680B006E6D6F /* loanRatesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC3D80181F680B006E6D6F /* loanRatesCell.xib */; };
+		3CEC3D83181F685D006E6D6F /* loanPayMethodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC3D82181F685D006E6D6F /* loanPayMethodCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +63,10 @@
 		3CE18A581819013900B31F54 /* TBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMainViewController.h; sourceTree = "<group>"; };
 		3CE18A591819013900B31F54 /* TBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMainViewController.m; sourceTree = "<group>"; };
 		3CE18A5A1819013900B31F54 /* TBMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBMainViewController.xib; sourceTree = "<group>"; };
+		3CEC3D7C181F5DC4006E6D6F /* loanCountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loanCountCell.xib; sourceTree = "<group>"; };
+		3CEC3D7E181F6650006E6D6F /* loanYearCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loanYearCell.xib; sourceTree = "<group>"; };
+		3CEC3D80181F680B006E6D6F /* loanRatesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loanRatesCell.xib; sourceTree = "<group>"; };
+		3CEC3D82181F685D006E6D6F /* loanPayMethodCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loanPayMethodCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +137,10 @@
 				3C23A2AF181A5712002B17E8 /* TBMonthListViewController.m */,
 				0A3197A2181AC14F00E24DEA /* TBLendingRatesViewController.h */,
 				0A3197A3181AC14F00E24DEA /* TBLendingRatesViewController.m */,
+				3CEC3D7C181F5DC4006E6D6F /* loanCountCell.xib */,
+				3CEC3D7E181F6650006E6D6F /* loanYearCell.xib */,
+				3CEC3D80181F680B006E6D6F /* loanRatesCell.xib */,
+				3CEC3D82181F685D006E6D6F /* loanPayMethodCell.xib */,
 			);
 			path = TBox;
 			sourceTree = "<group>";
@@ -239,6 +251,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CE18A5C1819013900B31F54 /* TBMainViewController.xib in Resources */,
+				3CEC3D83181F685D006E6D6F /* loanPayMethodCell.xib in Resources */,
+				3CEC3D7F181F6650006E6D6F /* loanYearCell.xib in Resources */,
+				3CEC3D7D181F5DC4006E6D6F /* loanCountCell.xib in Resources */,
+				3CEC3D81181F680B006E6D6F /* loanRatesCell.xib in Resources */,
 				3CE18A341819005300B31F54 /* InfoPlist.strings in Resources */,
 				3CE18A3C1819005300B31F54 /* Images.xcassets in Resources */,
 			);

@@ -61,7 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _mainSegment.selectedSegmentIndex = 1;
+    _mainSegment.selectedSegmentIndex = 0;
 //    NSString *monthStr = [NSString stringWithFormat:@"%d",row];
 //    [loanParameter setObject: monthStr forKey:@"month"];
     // Do any additional setup after loading the view from its nib.
@@ -72,6 +72,7 @@
                   @"12年7月6日优惠利率(9折)",@"12年7月6日上浮利率(1.1倍)", nil];
     
     [_mainSegment addTarget:self action:@selector(valueChanged:) forControlEvents: UIControlEventValueChanged];
+    _firstView.hidden = YES;
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -92,14 +93,15 @@
     
     if(segment.selectedSegmentIndex == 0) {
         NSLog(@"segment selected 0");
-
+        [_tableView reloadData];
         //action for the first button (All)
     }else if(segment.selectedSegmentIndex == 1){
         NSLog(@"segment selected 1");
         //action for the second button (Present)
+        [_tableView reloadData];
     }else if(segment.selectedSegmentIndex == 2){
         NSLog(@"segment selected 2");
-
+        [_tableView reloadData];
         //action for the third button (Missing)
     }
 }
@@ -130,42 +132,198 @@
     
 }
 
-#pragma mark - UIPickerViewDataSource
-/*
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return [self.view viewWidth];
+    // Return the number of sections.
+    return 1;
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [CustomView viewHeight];
+    // Return the number of rows in the section.
+    switch (_mainSegment.selectedSegmentIndex) {
+        case 0:
+            return 4;
+        case 1:
+            return 3;
+        case 2:
+            return 5;
+        default:
+            return 0;
+            break;
+    }
 }
-*/
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [loanMonthArray count];
+    /*
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+     cell.textLabel.text = (NSString*)[ratesArray objectAtIndex:[indexPath row]];
+    return cell;
+    */
+    NSInteger row = [indexPath row];
+    NSArray *nibTableCells;
+    UITableViewCell *cell;
+    // Configure the cell...
+    
+    // Configure the cell...
+    switch (_mainSegment.selectedSegmentIndex) {
+        case 0://商贷
+            switch (row) {
+                case 0:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanCountCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    return cell;
+                    break;
+                case 1:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanYearCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    return cell;
+                    break;
+                case 2:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanRatesCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    return cell;
+                    break;
+                case 3:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    return cell;
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            break;
+        case 1://公积金
+            switch (row) {
+                case 0:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanCountCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    return cell;
+                    break;
+                case 1:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanYearCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    return cell;
+                    break;
+                case 2:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanRatesCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    return cell;
+                    break;
+                    
+                default:
+                    break;
+            }
+
+            break;
+        case 2://组合
+            switch (row) {
+                case 0:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanCountCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    return cell;
+                    break;
+                case 1:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanCountCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    return cell;
+                    break;
+                case 2:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanYearCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    return cell;
+                    break;
+                case 3:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanRatesCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    return cell;
+                    break;
+                case 4:
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
+                    cell = [nibTableCells objectAtIndex:0];
+                    return cell;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row = [indexPath row];
+    TBMonthListViewController *_monthListViewController = [[TBMonthListViewController alloc]init];
+    TBLendingRatesViewController *ratesViewController = [[TBLendingRatesViewController alloc]init];
+    
+    switch (_mainSegment.selectedSegmentIndex) {
+        case 0:
+            switch (row) {
+                case 1://year
+                    [self.navigationController pushViewController:_monthListViewController animated:YES];
+                    break;
+                case 2://rates
+                    [self.navigationController pushViewController:ratesViewController animated:YES];
+
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 1:
+            switch (row) {
+                case 1://year
+                    [self.navigationController pushViewController:_monthListViewController animated:YES];
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 2:
+            switch (row) {
+                case 2://year
+                    [self.navigationController pushViewController:_monthListViewController animated:YES];
+                    break;
+                case 3://rates
+                    [self.navigationController pushViewController:ratesViewController animated:YES];
+
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+    
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-	return 1;
-}
-
-
-#pragma mark - UIPickerViewDelegate
-
-// tell the picker which view to use for a given component and row, we have an array of views to show
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return (NSString*)[loanMonthArray objectAtIndex:row];
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

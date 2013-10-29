@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBMainViewController : UIViewController{
+@interface TBMainViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
 
     IBOutlet UISegmentedControl *_mainSegment;
     NSArray *loanMonthArray;
     NSArray *ratesArray;
+    IBOutlet UITableView *_tableView;
 
 //    IBOutlet UIPickerView *_pickView;
     
