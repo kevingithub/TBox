@@ -88,7 +88,9 @@
     ratesValue = [ratesArray objectAtIndex:rates];
     [_DKFeeLabel setTitle:ratesValue forState:UIControlStateNormal];
 }
-
+-(void)segmentAction:(UISegmentedControl *)segment{
+    NSLog(@"pay method");
+}
 - (void)valueChanged:(UISegmentedControl *)segment {
     
     if(segment.selectedSegmentIndex == 0) {
@@ -200,11 +202,13 @@
                 case 3:
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
+                    UISegmentedControl *segment= (UISegmentedControl*)[cell.contentView viewWithTag:11];
+                    [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                     break;
                     
-                default:
-                    break;
+//                default:
+//                    break;
             }
             
             break;
@@ -230,8 +234,8 @@
                     return cell;
                     break;
                     
-                default:
-                    break;
+//                default:
+//                    break;
             }
 
             break;
@@ -264,11 +268,13 @@
                 case 4:
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
+                    UISegmentedControl *_segment = (UISegmentedControl*)[cell.contentView viewWithTag:11];
+                    [_segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                     break;
                     
-                default:
-                    break;
+//                default:
+//                    break;
             }
             break;
             
