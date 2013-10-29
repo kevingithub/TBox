@@ -30,5 +30,6 @@
     //third segment
     
 }
+-(IBAction)getResultButton:(id)sender;
 
 @end

@@ -232,9 +232,10 @@
                     return cell;
                     break;
                 case 2:
-                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanRatesCell" owner:self options:nil];
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    UISegmentedControl *segment= (UISegmentedControl*)[cell.contentView viewWithTag:11];
+                    [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
                     return cell;
                     break;
@@ -323,6 +324,14 @@
     
     return nil;
 }
+//hide the keyboard
+-(void)hideKeyboard
+{
+    NSIndexPath * index= [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
+    UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
+    [field resignFirstResponder];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
     TBMonthListViewController *_monthListViewController = [[TBMonthListViewController alloc]init];
@@ -335,9 +344,12 @@
                     [self.navigationController pushViewController:_monthListViewController animated:YES];
                     break;
                 case 2://rates
+                {
+                   
                     [self.navigationController pushViewController:ratesViewController animated:YES];
 
                     break;
+                }
                 default:
                     break;
             }
@@ -369,6 +381,32 @@
     }
     
 }
-
+#pragma mark - get the result
+    -(IBAction)getResultButton:(id)sender{
+    switch(_mainSegment.selectedSegmentIndex){
+        case 0:
+        {
+            NSLog(@"get result 0");
+            NSIndexPath * index= [NSIndexPath indexPathForRow:0 inSection:0];
+            UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
+            UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
+            NSInteger moneyCount = [field.text integerValue];
+            NSLog(@"%d",moneyCount);
+            
+            return;
+        }
+            case 1:
+        {
+            NSLog(@"get result 1");
+            break;
+        }
+        case 2:
+        {
+            NSLog(@"get result 2");
+            break;
+        }
+            
+    }
+    }
 
 @end
