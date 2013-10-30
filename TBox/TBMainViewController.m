@@ -43,7 +43,9 @@
 -(IBAction)selectMonthList:(id)sender;
 -(IBAction)selectLendingRates:(id)sender;
 
--(float)getBenXiMoney:(NSInteger)money year:(NSInteger)year;
+-(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month;
+-(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(NSNumber*)rates;
+-(float)getCurrentRates:(NSInteger)year;
 
 @end
 
@@ -96,6 +98,8 @@
     if(segment.selectedSegmentIndex == 0) {
         NSLog(@"segment selected 0");
         [_tableView reloadData];
+        [self getBenXiMoney:10000000 month:24];
+        [self getPayMoney:1000000 month:12 rates:[NSNumber numberWithFloat:0.06]];
         //action for the first button (All)
     }else if(segment.selectedSegmentIndex == 1){
         NSLog(@"segment selected 1");
@@ -127,13 +131,48 @@
  等额本息计算公式：
  〔贷款本金×月利率×（1＋月利率）＾还款月数〕÷〔（1＋月利率）＾还款月数－1〕
  */
--(float)getBenXiMoney:(NSInteger)money year:(NSInteger)year{
+-(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month{
 //    float MonthlyRate;
-    
-    return 0.0;
+
+            float firstFloat = 1.0,monthRates;
+            float result_1,result_2;
+            
+            monthRates =0.0655/12;
+            for (int i = 1; i < month+1; i ++) {
+                firstFloat *= (1+monthRates);
+            }
+            result_1 = money*monthRates*firstFloat;
+            result_2 = result_1/(firstFloat-1);
+            NSLog(@"%f",result_2);
+            return result_2;
+      
     
 }
-
+-(float)getCurrentRates:(NSInteger)year
+{
+    
+    return 0.0;
+}
+/*
+ * method:true
+ *等额本金计算公式：
+ 每月还款金额 = （贷款本金 ÷ 还款月数）+（本金 — 已归还本金累计额）×每月利率
+ */
+-(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(NSNumber*)rates{
+    float firstFloat = 1.0,monthRates,averageMonth;
+    NSMutableArray *monthArray;
+    
+    monthRates =[rates floatValue]/12;
+    averageMonth = money/month;
+    
+    monthArray = [[NSMutableArray alloc]initWithCapacity:month];
+    for (int i = 1; i < month+1; i ++) {
+        firstFloat = averageMonth +(money-(i-1)*averageMonth)*monthRates;
+        [monthArray addObject:[NSNumber numberWithFloat:firstFloat]];
+        
+    }
+    return monthArray;
+}
 
 
 #pragma mark - Table view data source
