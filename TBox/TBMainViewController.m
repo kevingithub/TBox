@@ -40,12 +40,10 @@
     */
 }
 -(IBAction)firstViewButtonAction:(id)sender;
--(IBAction)selectMonthList:(id)sender;
--(IBAction)selectLendingRates:(id)sender;
 
 -(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month;
 -(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(double)rates;
--(float)getCurrentRates:(NSInteger)year;
+//-(double)getCurrentRates:(NSInteger)year;
 
 @end
 
@@ -75,6 +73,8 @@
     
     [_mainSegment addTarget:self action:@selector(valueChanged:) forControlEvents: UIControlEventValueChanged];
     _firstView.hidden = YES;
+    UIBarButtonItem *getResultBT = [[UIBarButtonItem alloc] initWithTitle:@"计算结果" style:UIBarButtonItemStyleDone target:self action:@selector(getResultButton:)];
+    self.navigationController.navigationItem.rightBarButtonItem = getResultBT;
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -415,7 +415,7 @@
     
 }
 #pragma mark - get the result
-    -(IBAction)getResultButton:(id)sender{
+    -(void)getResultButton:(id)sender{
     switch(_mainSegment.selectedSegmentIndex){
         case 0:
         {
