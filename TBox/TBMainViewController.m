@@ -44,7 +44,7 @@
 -(IBAction)selectLendingRates:(id)sender;
 
 -(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month;
--(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(NSNumber*)rates;
+-(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(double)rates;
 -(float)getCurrentRates:(NSInteger)year;
 
 @end
@@ -99,7 +99,7 @@
         NSLog(@"segment selected 0");
         [_tableView reloadData];
         [self getBenXiMoney:10000000 month:24];
-        [self getPayMoney:1000000 month:12 rates:[NSNumber numberWithFloat:0.06]];
+        [self getPayMoney:1000000 month:12 rates:(double)0.06];
         //action for the first button (All)
     }else if(segment.selectedSegmentIndex == 1){
         NSLog(@"segment selected 1");
@@ -182,11 +182,11 @@
  *等额本金计算公式：
  每月还款金额 = （贷款本金 ÷ 还款月数）+（本金 — 已归还本金累计额）×每月利率
  */
--(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(NSNumber*)rates{
+-(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(double)rates{
     float firstFloat = 1.0,monthRates,averageMonth;
     NSMutableArray *monthArray;
     
-    monthRates =[rates floatValue]/12;
+    monthRates =rates/12;
     averageMonth = money/month;
     
     monthArray = [[NSMutableArray alloc]initWithCapacity:month];
