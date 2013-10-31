@@ -261,10 +261,9 @@
                     break;
                 case 2:
                 {
-                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanRatesCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
-                    UISegmentedControl *segment= (UISegmentedControl*)[cell.contentView viewWithTag:11];
-                    [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
                     return cell;
                 }
@@ -338,11 +337,13 @@
                     return cell;
                     break;
                 case 4:
+                {
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
                     UISegmentedControl *_segment = (UISegmentedControl*)[cell.contentView viewWithTag:11];
                     [_segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
+                }
                     break;
                     
 //                default:
