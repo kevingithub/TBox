@@ -117,15 +117,7 @@
    
     
 }
--(IBAction)selectMonthList:(id)sender{
-    TBMonthListViewController *monthListViewController = [[TBMonthListViewController alloc]init];
-    [self.navigationController pushViewController:monthListViewController animated:YES];
-}
--(IBAction)selectLendingRates:(id)sender{
-    TBLendingRatesViewController *ratesViewController = [[TBLendingRatesViewController alloc]init];
-    [self.navigationController pushViewController:ratesViewController animated:YES];
-    
-}
+
 
 /*
  等额本息计算公式：
@@ -221,30 +213,38 @@
         case 0://商贷
             switch (row) {
                 case 0:
+                {
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanCountCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
                     return cell;
+                }
                     break;
                 case 1:
+                {
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanYearCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     return cell;
+                }
                     break;
                 case 2:
+                {
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
                     UISegmentedControl *segment= (UISegmentedControl*)[cell.contentView viewWithTag:11];
                     [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 
                     return cell;
+                }
                     break;
                 case 3:
+                {
                     nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
                     UISegmentedControl *segment= (UISegmentedControl*)[cell.contentView viewWithTag:11];
                     [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
+                }
                     break;
                     
 //                default:
