@@ -140,10 +140,42 @@
       
     
 }
--(float)getCurrentRates:(NSInteger)year
+/*
+ 一、短期贷款
+ 1.六个月（含）5.6%
+ 2.六个月至一年（含）6%
+ 二、中长期贷款
+ 1.一至三年（含）6.15%
+ 2.三至五年（含）6.4%
+ 3.五年以上 6.55%
+ 
+ 2012.07.06
+ 5年以内(含)
+ 4.00
+ 
+ 5年以上
+ 4.50
+ */
+-(double)getShangYeCurrentRates:(NSInteger)month
 {
-    
+    if(month<=6)
+        return 0.056;
+    if(month <=12)
+        return 0.06;
+    if(month <=36)
+        return 0.0615;
+    if(month <=60)
+        return 0.064;
+    if(month >60)
+        return 0.0655;
     return 0.0;
+}
+-(double)getGJJCurrentRates:(NSInteger)month
+{
+    if(month<=60)
+        return 0.04;
+    else
+        return 0.045;
 }
 /*
  * method:true
