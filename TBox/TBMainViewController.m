@@ -41,7 +41,7 @@
 }
 -(IBAction)firstViewButtonAction:(id)sender;
 
--(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month;
+-(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month rates:(double)rates;
 -(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(double)rates;
 //-(double)getCurrentRates:(NSInteger)year;
 
@@ -74,7 +74,7 @@
     [_mainSegment addTarget:self action:@selector(valueChanged:) forControlEvents: UIControlEventValueChanged];
     _firstView.hidden = YES;
     UIBarButtonItem *getResultBT = [[UIBarButtonItem alloc] initWithTitle:@"计算结果" style:UIBarButtonItemStyleDone target:self action:@selector(getResultButton:)];
-    self.navigationController.navigationItem.rightBarButtonItem = getResultBT;
+    self.navigationItem.rightBarButtonItem = getResultBT;
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -98,9 +98,7 @@
     if(segment.selectedSegmentIndex == 0) {
         NSLog(@"segment selected 0");
         [_tableView reloadData];
-        [self getBenXiMoney:10000000 month:24];
-        [self getPayMoney:1000000 month:12 rates:(double)0.06];
-        //action for the first button (All)
+         //action for the first button (All)
     }else if(segment.selectedSegmentIndex == 1){
         NSLog(@"segment selected 1");
         //action for the second button (Present)
@@ -123,22 +121,19 @@
  等额本息计算公式：
  〔贷款本金×月利率×（1＋月利率）＾还款月数〕÷〔（1＋月利率）＾还款月数－1〕
  */
--(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month{
+-(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month rates:(double)rates{
 //    float MonthlyRate;
 
-            float firstFloat = 1.0,monthRates;
-            float result_1,result_2;
+            double firstFloat = 1.0,monthRates;
+            double result_1,result_2;
             
-            monthRates =0.0655/12;
+            monthRates =rates/12;
             for (int i = 1; i < month+1; i ++) {
                 firstFloat *= (1+monthRates);
             }
             result_1 = money*monthRates*firstFloat;
             result_2 = result_1/(firstFloat-1);
-            NSLog(@"%f",result_2);
             return result_2;
-      
-    
 }
 /*
  一、短期贷款
@@ -156,19 +151,33 @@
  5年以上
  4.50
  */
--(double)getShangYeCurrentRates:(NSInteger)month
+-(double)getShangYeCurrentRates:(NSInteger)month style:(NSInteger)style
 {
+    double rates ;
     if(month<=6)
-        return 0.056;
-    if(month <=12)
-        return 0.06;
-    if(month <=36)
-        return 0.0615;
-    if(month <=60)
-        return 0.064;
-    if(month >60)
-        return 0.0655;
-    return 0.0;
+        rates = 0.056;
+    else if(month <=12)
+        rates = 0.06;
+    else if(month <=36)
+        rates = 0.0615;
+    else if(month <=60)
+        rates = 0.064;
+    else if(month >60)
+        rates = 0.0655;
+    switch (style) {
+        case 1:
+            rates = rates *0.85;
+            break;
+        case 2:
+            rates = rates * 0.9;
+            break;
+        case 3:
+            rates = rates * 1.1;
+            break;
+        default:
+            break;
+    }
+    return rates;
 }
 -(double)getGJJCurrentRates:(NSInteger)month
 {
@@ -415,16 +424,33 @@
     
 }
 #pragma mark - get the result
-    -(void)getResultButton:(id)sender{
+-(void)getResultButton:(id)sender{
+    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    NSNumber *monthValue = (NSNumber*)[loanParameter objectForKey:@"month"];
+    NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
+    
     switch(_mainSegment.selectedSegmentIndex){
         case 0:
         {
-            NSLog(@"get result 0");
+            NSIndexPath * _index= [NSIndexPath indexPathForRow:3 inSection:0];
+            UITableViewCell *cell = [_tableView cellForRowAtIndexPath:_index];
+            UISegmentedControl *segment = (UISegmentedControl*)[cell viewWithTag:11];
+            NSInteger selected = segment.selectedSegmentIndex;
+            
             NSIndexPath * index= [NSIndexPath indexPathForRow:0 inSection:0];
             UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
             UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
-            NSInteger moneyCount = [field.text integerValue];
-            NSLog(@"%d",moneyCount);
+            NSInteger money = [field.text integerValue];
+            double rates = [self getShangYeCurrentRates:[monthValue integerValue] style:[ratesValue integerValue]];
+            if (selected == 0)//等额本息
+            {
+                double payMoney = [self getBenXiMoney:money month:[monthValue integerValue]
+                                                rates:rates];
+            }
+            else//等额本金
+            {
+                NSArray *payArray = [self getPayMoney:money month:[monthValue integerValue] rates:rates];
+            }
             
             return;
         }

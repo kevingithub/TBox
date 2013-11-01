@@ -75,8 +75,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-    NSString *monthStr = [NSString stringWithFormat:@"%d",row];
-    [loanParameter setObject: monthStr forKey:@"rates"];
+    NSNumber *rates = [[NSNumber alloc]initWithInteger:row];
+    [loanParameter setObject: rates forKey:@"rates"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
