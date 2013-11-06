@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0A3197A4181AC14F00E24DEA /* TBLendingRatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3197A3181AC14F00E24DEA /* TBLendingRatesViewController.m */; };
 		3C23A2B0181A5712002B17E8 /* TBMonthListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A2AF181A5712002B17E8 /* TBMonthListViewController.m */; };
+		3C8BCB8D182A46370080F119 /* TBDetailInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */; };
+		3C8BCB8E182A46370080F119 /* TBDetailInformationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */; };
 		3CE18A2A1819005300B31F54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A291819005300B31F54 /* Foundation.framework */; };
 		3CE18A2C1819005300B31F54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A2B1819005300B31F54 /* CoreGraphics.framework */; };
 		3CE18A2E1819005300B31F54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A2D1819005300B31F54 /* UIKit.framework */; };
@@ -44,6 +46,9 @@
 		0A3197A3181AC14F00E24DEA /* TBLendingRatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBLendingRatesViewController.m; sourceTree = "<group>"; };
 		3C23A2AE181A5712002B17E8 /* TBMonthListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMonthListViewController.h; sourceTree = "<group>"; };
 		3C23A2AF181A5712002B17E8 /* TBMonthListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMonthListViewController.m; sourceTree = "<group>"; };
+		3C8BCB8A182A46370080F119 /* TBDetailInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDetailInformationController.h; sourceTree = "<group>"; };
+		3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDetailInformationController.m; sourceTree = "<group>"; };
+		3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBDetailInformationController.xib; sourceTree = "<group>"; };
 		3CE18A261819005300B31F54 /* TBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE18A291819005300B31F54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3CE18A2B1819005300B31F54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -141,6 +146,9 @@
 				3CEC3D7E181F6650006E6D6F /* loanYearCell.xib */,
 				3CEC3D80181F680B006E6D6F /* loanRatesCell.xib */,
 				3CEC3D82181F685D006E6D6F /* loanPayMethodCell.xib */,
+				3C8BCB8A182A46370080F119 /* TBDetailInformationController.h */,
+				3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */,
+				3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */,
 			);
 			path = TBox;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 				3CEC3D81181F680B006E6D6F /* loanRatesCell.xib in Resources */,
 				3CE18A341819005300B31F54 /* InfoPlist.strings in Resources */,
 				3CE18A3C1819005300B31F54 /* Images.xcassets in Resources */,
+				3C8BCB8E182A46370080F119 /* TBDetailInformationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +287,7 @@
 				3CE18A3A1819005300B31F54 /* TBAppDelegate.m in Sources */,
 				3C23A2B0181A5712002B17E8 /* TBMonthListViewController.m in Sources */,
 				3CE18A361819005300B31F54 /* main.m in Sources */,
+				3C8BCB8D182A46370080F119 /* TBDetailInformationController.m in Sources */,
 				0A3197A4181AC14F00E24DEA /* TBLendingRatesViewController.m in Sources */,
 				3CE18A5B1819013900B31F54 /* TBMainViewController.m in Sources */,
 			);

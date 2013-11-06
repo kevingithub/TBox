@@ -487,11 +487,15 @@
             {
                 double payMoney = [self getBenXiMoney:money month:_month
                                                 rates:rates];
-                [loanParameter setObject:[[NSNumber alloc]initWithDouble:payMoney] forKey:@"sy_bx_paymoney"];
+                [loanParameter setObject:
+                 [[NSNumber alloc]initWithDouble:payMoney]
+                                  forKey:@"sy_bx_paymoney"];
             }
             else//等额本金
             {
-                NSArray *payArray = [self getPayMoney:money month:_month rates:rates];
+                NSArray *payArray = [self getPayMoney:money
+                                                month:_month
+                                                rates:rates];
                 [loanParameter setObject:payArray forKey:@"sy_bj_paymoney"];
             }
             
