@@ -191,8 +191,10 @@
  *等额本金计算公式：
  每月还款金额 = （贷款本金 ÷ 还款月数）+（本金 — 已归还本金累计额）×每月利率
  */
--(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(double)rates{
-    float firstFloat = 1.0,monthRates,averageMonth;
+-(NSArray*)getPayMoney:(NSUInteger)money
+                 month:(NSInteger)month
+                 rates:(double)rates{
+    double firstFloat = 1.0,monthRates,averageMonth;
     NSMutableArray *monthArray;
     
     monthRates =rates/12;
@@ -206,6 +208,43 @@
     }
     return monthArray;
 }
+//获取混合等额本金
+- (NSArray *)GetHunHeMoney:(NSUInteger)moneyShangYe
+            moneyGongJiJin:(NSUInteger)moneyGongJiJin
+                     month:(NSInteger)month {
+    double gongJiJinRates,shangYeRates,tempRatesShangYe,tempRatesGongJiJin;
+    double averageGongJiJin,averageShangYe;
+    double monthRatesGongJiJin,monthRatesShangYe;
+    NSMutableArray * monthArray;
+    
+    monthArray = [[NSMutableArray alloc]initWithCapacity:month];
+    gongJiJinRates = [self getGJJCurrentRates:month];
+    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
+    NSInteger styleRate = [ratesValue integerValue];
+    shangYeRates = [self getShangYeCurrentRates:month style:styleRate];
+    
+    averageGongJiJin = moneyGongJiJin/month;
+    averageShangYe = moneyShangYe/month;
+    monthRatesGongJiJin = gongJiJinRates/12;
+    monthRatesShangYe = shangYeRates/12;
+    
+    for (int i = 1; i <month +1; i ++) {
+        tempRatesShangYe = averageShangYe +
+                    (moneyShangYe-(i-1)*averageShangYe) * monthRatesShangYe;
+        tempRatesGongJiJin = averageGongJiJin +
+        (moneyGongJiJin -(i-1)*averageGongJiJin)*monthRatesGongJiJin;
+        
+        [monthArray addObject:
+         [NSNumber numberWithDouble:
+          (tempRatesGongJiJin+tempRatesShangYe)]];
+        
+    }
+    
+    
+    return monthArray;
+}
+
 
 
 #pragma mark - Table view data source
@@ -428,9 +467,11 @@
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
     NSNumber *monthValue = (NSNumber*)[loanParameter objectForKey:@"month"];
     NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
+    NSInteger _month = [monthValue integerValue];
+    NSInteger _rates = [ratesValue integerValue];
     
     switch(_mainSegment.selectedSegmentIndex){
-        case 0:
+        case 0://商业贷款
         {
             NSIndexPath * _index= [NSIndexPath indexPathForRow:3 inSection:0];
             UITableViewCell *cell = [_tableView cellForRowAtIndexPath:_index];
@@ -441,27 +482,94 @@
             UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
             UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
             NSInteger money = [field.text integerValue];
-            double rates = [self getShangYeCurrentRates:[monthValue integerValue] style:[ratesValue integerValue]];
+            double rates = [self getShangYeCurrentRates:_month style:_rates];
             if (selected == 0)//等额本息
             {
-                double payMoney = [self getBenXiMoney:money month:[monthValue integerValue]
+                double payMoney = [self getBenXiMoney:money month:_month
                                                 rates:rates];
+                [loanParameter setObject:[[NSNumber alloc]initWithDouble:payMoney] forKey:@"sy_bx_paymoney"];
             }
             else//等额本金
             {
-                NSArray *payArray = [self getPayMoney:money month:[monthValue integerValue] rates:rates];
+                NSArray *payArray = [self getPayMoney:money month:_month rates:rates];
+                [loanParameter setObject:payArray forKey:@"sy_bj_paymoney"];
             }
             
             return;
         }
-            case 1:
+            case 1://公积金贷款
         {
-            NSLog(@"get result 1");
+            //获取贷款金额
+            NSIndexPath *index_1 = [NSIndexPath indexPathForRow:0 inSection:0];
+            UITableViewCell *cell_1 = [_tableView cellForRowAtIndexPath:index_1];
+            UITextField *field_1 = (UITextField*)[cell_1 viewWithTag:11];
+            NSInteger gjj_money = [field_1.text integerValue];
+            //获取还款方式
+            NSIndexPath *index_2 = [NSIndexPath indexPathForRow:2 inSection:0];
+            UITableViewCell *cell_2 = [_tableView cellForRowAtIndexPath:index_2];
+            UISegmentedControl *segment_1 = (UISegmentedControl*)[cell_2 viewWithTag:11];
+            NSInteger selected = segment_1.selectedSegmentIndex;
+            double rates = [self getGJJCurrentRates:_month ];
+            
+            if (selected ==0) {
+                double gjjPayMoney = [self getBenXiMoney:gjj_money
+                                                   month:_month
+                                                   rates:_rates];
+                [loanParameter setObject:
+                 [[NSNumber alloc]initWithDouble:gjjPayMoney ]
+                                  forKey:@"gjj_bx_paymoney"];
+
+                
+            } else {
+                NSArray *gjjArray =[self getPayMoney:gjj_money month:_month rates:rates];
+                [loanParameter setObject:gjjArray forKey:@"gjj_bj_paymoney"];
+            }
+            
+            
             break;
         }
-        case 2:
+        case 2://混合贷款
+            
         {
-            NSLog(@"get result 2");
+            //获取商业贷款金额
+            NSIndexPath *index_1 = [NSIndexPath indexPathForRow:0 inSection:0];
+            UITableViewCell *cell_1 = [_tableView cellForRowAtIndexPath:index_1];
+            UITextField *field_1 = (UITextField*)[cell_1 viewWithTag:11];
+            NSInteger sy_money = [field_1.text integerValue];
+            
+            //获取公积金贷款金额
+            NSIndexPath *index_2 = [NSIndexPath indexPathForRow:1 inSection:0];
+            UITableViewCell *cell_2 = [_tableView cellForRowAtIndexPath:index_2];
+            UITextField *field_2 = (UITextField*)[cell_2 viewWithTag:11];
+            NSInteger gjj_money = [field_2.text integerValue];
+            
+            //获取贷款方式
+            NSIndexPath *index_3 = [NSIndexPath indexPathForRow:4 inSection:0];
+            UITableViewCell *cell_3 = [_tableView cellForRowAtIndexPath:index_3];
+            UISegmentedControl *segment_1 = (UISegmentedControl*)[cell_3 viewWithTag:11];
+            NSInteger selected = segment_1.selectedSegmentIndex;
+            double ratesShangYe = [self getShangYeCurrentRates:_month style:_rates];
+            double ratesGongJiJin =[self getGJJCurrentRates:_month];
+
+            if (selected ==0) {
+                double hunHeShangYe = [self getBenXiMoney:sy_money
+                                                    month:_month
+                                                    rates:ratesShangYe];
+                
+                double hunHeGongJiJin = [self getBenXiMoney:gjj_money
+                                                      month:_month
+                                                      rates:ratesGongJiJin];
+                [loanParameter setObject:
+                 [[NSNumber alloc]initWithDouble:(hunHeShangYe+hunHeGongJiJin)]
+                                  forKey:@"hh_paymoney"];
+                
+            } else {
+                NSArray *hunHeArray = [self GetHunHeMoney:sy_money
+                                           moneyGongJiJin:gjj_money
+                                                    month:_month];
+                [loanParameter setObject:hunHeArray forKey:@"hh_bj_paymoney"];
+            }
+            
             break;
         }
             
