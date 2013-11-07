@@ -63,6 +63,7 @@
 {
     [super viewDidLoad];
     _mainSegment.selectedSegmentIndex = 0;
+    type = LoanTypeShangYE;
 //    NSString *monthStr = [NSString stringWithFormat:@"%d",row];
 //    [loanParameter setObject: monthStr forKey:@"month"];
     // Do any additional setup after loading the view from its nib.
@@ -580,18 +581,7 @@
         }
             
     }
-    switch (_mainSegment.selectedSegmentIndex) {
-        case 0:
-            type = LoanTypeShangYE;
-            break;
-        case 1:
-            type = LoanTypeGongJiJin;
-            break;
-        case 2:
-            type = LoanTypeHunhe;
-            break;
-            
-    }
+
     TBDetailInformationController *targetViewController = [[TBDetailInformationController alloc]initWithNib:@"TBDetailInformationController" type:&type];
     
     }
