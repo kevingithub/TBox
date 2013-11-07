@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBDetailInformationController : UIViewController
+@interface TBDetailInformationController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+    IBOutlet UILabel *loanAmountLabel;
+    IBOutlet UILabel *loanMonthLabel;
+    IBOutlet UILabel *modeOfRepaymentLabel;
+    IBOutlet UILabel *loanRatesLabel;
+    IBOutlet UILabel *loanAmountHunHeLabel;
+    IBOutlet UILabel *loanRatesHunHeLabel;
+    
+    IBOutlet UITableView *loanDetailTableView;
+    LoanType *type;
+    
+}
+- (id)initWithNib:(NSString*)nibName type:(LoanType *)type;
+
 
 @end

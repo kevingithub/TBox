@@ -25,6 +25,9 @@
     IBOutlet UIButton *_DK_Done;
     IBOutlet UIView *_firstView;
     
+    LoanType type ;
+
+    
     //second segment
     
     //third segment

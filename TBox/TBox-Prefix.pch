@@ -14,3 +14,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+typedef enum {
+    LoanTypeShangYE = 1,
+    LoanTypeGongJiJin = 2,
+    LoanTypeHunhe = 3
+}LoanType;

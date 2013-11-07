@@ -9,6 +9,7 @@
 #import "TBMainViewController.h"
 #import "TBMonthListViewController.h"
 #import "TBLendingRatesViewController.h"
+#import "TBDetailInformationController.h"
 
 @interface TBMainViewController ()
 {
@@ -75,8 +76,8 @@
     _firstView.hidden = YES;
     UIBarButtonItem *getResultBT = [[UIBarButtonItem alloc] initWithTitle:@"计算结果" style:UIBarButtonItemStyleDone target:self action:@selector(getResultButton:)];
     self.navigationItem.rightBarButtonItem = getResultBT;
-    
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     NSLog(@"will appear");
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
@@ -93,20 +94,21 @@
 -(void)segmentAction:(UISegmentedControl *)segment{
     NSLog(@"pay method");
 }
+
 - (void)valueChanged:(UISegmentedControl *)segment {
     
     if(segment.selectedSegmentIndex == 0) {
         NSLog(@"segment selected 0");
         [_tableView reloadData];
-         //action for the first button (All)
+        type = LoanTypeShangYE;
     }else if(segment.selectedSegmentIndex == 1){
         NSLog(@"segment selected 1");
-        //action for the second button (Present)
         [_tableView reloadData];
+        type = LoanTypeGongJiJin;
     }else if(segment.selectedSegmentIndex == 2){
         NSLog(@"segment selected 2");
         [_tableView reloadData];
-        //action for the third button (Missing)
+        type = LoanTypeHunhe;
     }
 }
 
@@ -578,6 +580,20 @@
         }
             
     }
+    switch (_mainSegment.selectedSegmentIndex) {
+        case 0:
+            type = LoanTypeShangYE;
+            break;
+        case 1:
+            type = LoanTypeGongJiJin;
+            break;
+        case 2:
+            type = LoanTypeHunhe;
+            break;
+            
+    }
+    TBDetailInformationController *targetViewController = [[TBDetailInformationController alloc]initWithNib:@"TBDetailInformationController" type:&type];
+    
     }
 
 @end
