@@ -56,16 +56,53 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     NSLog(@"will appear");
+    //获取当前用户选择月份
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-    NSString *monthValue = (NSString*)[loanParameter objectForKey:@"month"];
+    NSNumber *monthValue = (NSNumber*)[loanParameter objectForKey:@"month"];
     NSInteger month = [monthValue integerValue];
-    monthValue = [loanMonthArray objectAtIndex:month];
-    [_DKYearButton setTitle:monthValue forState:UIControlStateNormal];
-    
-    NSString *ratesValue = (NSString *)[loanParameter objectForKey:@"rates"];
+    NSInteger indexMonth;
+    if (month <= 6) {
+        indexMonth = 0;
+    }else{
+        indexMonth = month/12;
+    }
+    //获取当前用户设置利率
+    NSNumber *ratesValue = (NSNumber *)[loanParameter objectForKey:@"rates"];
     NSInteger rates = [ratesValue integerValue];
-    ratesValue = [ratesArray objectAtIndex:rates];
-    [_DKFeeLabel setTitle:ratesValue forState:UIControlStateNormal];
+//    NSString *ratesStr = [ratesArray objectAtIndex:rates];
+    
+    if (type == LoanTypeShangYE_BenJi || type == LoanTypeShangYE_BenXi) {
+        //设置用户选择月份
+        NSIndexPath * index= [NSIndexPath indexPathForRow:1 inSection:0];
+        UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
+        UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
+        field.text = [loanMonthArray objectAtIndex:indexMonth];
+        //设置用户选择利率
+        index= [NSIndexPath indexPathForRow:2 inSection:0];
+        cell_0 = [_tableView cellForRowAtIndexPath:index];
+        field = (UITextField*)[cell_0 viewWithTag:11];
+        field.text = [ratesArray objectAtIndex:rates];
+    } else if (type == LoanTypeGongJiJin_BenJin || type == LoanTypeGongJiJin_BenXi){
+        //设置用户选择月份
+        NSIndexPath * index= [NSIndexPath indexPathForRow:1 inSection:0];
+        UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
+        UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
+        field.text = [loanMonthArray objectAtIndex:indexMonth];
+        
+    }else if (type == LoanTypeHunhe_BenXi || type == LoanTypeHunhe_BenJin){
+        //设置用户选择月份
+        NSIndexPath * index= [NSIndexPath indexPathForRow:2 inSection:0];
+        UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
+        UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
+        field.text = [loanMonthArray objectAtIndex:indexMonth];
+        //设置用户选择利率
+        index= [NSIndexPath indexPathForRow:3 inSection:0];
+        cell_0 = [_tableView cellForRowAtIndexPath:index];
+        field = (UITextField*)[cell_0 viewWithTag:11];
+        field.text = [ratesArray objectAtIndex:rates];
+    }
+    
+    //显示当前用户
 }
 -(void)segmentAction:(UISegmentedControl *)segment{
     NSLog(@"pay method");
@@ -115,23 +152,8 @@
             result_2 = result_1/(firstFloat-1);
             return result_2;
 }
-/*
- 一、短期贷款
- 1.六个月（含）5.6%
- 2.六个月至一年（含）6%
- 二、中长期贷款
- 1.一至三年（含）6.15%
- 2.三至五年（含）6.4%
- 3.五年以上 6.55%
- 
- 2012.07.06
- 5年以内(含)
- 4.00
- 
- 5年以上
- 4.50
- */
--(double)getShangYeCurrentRates:(NSInteger)month style:(NSInteger)style
+//获取商业贷款汇率
++ (double)getShangYeCurrentRates:(NSInteger)month style:(NSInteger)style
 {
     double rates ;
     if(month<=6)
@@ -159,7 +181,8 @@
     }
     return rates;
 }
--(double)getGJJCurrentRates:(NSInteger)month
+//获取公积金汇率
++(double)getGJJCurrentRates:(NSInteger)month
 {
     if(month<=60)
         return 0.04;
@@ -198,11 +221,11 @@
     NSMutableArray * monthArray;
     
     monthArray = [[NSMutableArray alloc]initWithCapacity:month];
-    gongJiJinRates = [self getGJJCurrentRates:month];
+    gongJiJinRates = [TBMainViewController getGJJCurrentRates:month];
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
     NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
     NSInteger styleRate = [ratesValue integerValue];
-    shangYeRates = [self getShangYeCurrentRates:month style:styleRate];
+    shangYeRates = [TBMainViewController getShangYeCurrentRates:month style:styleRate];
     
     averageGongJiJin = moneyGongJiJin/month;
     averageShangYe = moneyShangYe/month;
@@ -462,7 +485,7 @@
             UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
             UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
             NSInteger money = [field.text integerValue];
-            double rates = [self getShangYeCurrentRates:_month style:_rates];
+            double rates = [TBMainViewController getShangYeCurrentRates:_month style:_rates];
             if (selected == 0)//等额本息
             {
                 double payMoney = [self getBenXiMoney:money month:_month
@@ -479,7 +502,7 @@
                 [loanParameter setObject:payArray forKey:@"sy_bj_paymoney"];
             }
             
-            return;
+            break;
         }
             case 1://公积金贷款
         {
@@ -493,7 +516,7 @@
             UITableViewCell *cell_2 = [_tableView cellForRowAtIndexPath:index_2];
             UISegmentedControl *segment_1 = (UISegmentedControl*)[cell_2 viewWithTag:11];
             NSInteger selected = segment_1.selectedSegmentIndex;
-            double rates = [self getGJJCurrentRates:_month ];
+            double rates = [TBMainViewController getGJJCurrentRates:_month ];
             
             if (selected ==0) {
                 double gjjPayMoney = [self getBenXiMoney:gjj_money
@@ -532,8 +555,8 @@
             UITableViewCell *cell_3 = [_tableView cellForRowAtIndexPath:index_3];
             UISegmentedControl *segment_1 = (UISegmentedControl*)[cell_3 viewWithTag:11];
             NSInteger selected = segment_1.selectedSegmentIndex;
-            double ratesShangYe = [self getShangYeCurrentRates:_month style:_rates];
-            double ratesGongJiJin =[self getGJJCurrentRates:_month];
+            double ratesShangYe = [TBMainViewController getShangYeCurrentRates:_month style:_rates];
+            double ratesGongJiJin =[TBMainViewController getGJJCurrentRates:_month];
 
             if (selected ==0) {
                 double hunHeShangYe = [self getBenXiMoney:sy_money

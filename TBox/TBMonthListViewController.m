@@ -76,7 +76,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-    NSNumber *month = [[NSNumber alloc]initWithInteger:row];
+    NSNumber *month;
+    if (row == 0) {
+        month = [[NSNumber alloc]initWithInteger:6];
+    }else{
+        month = [[NSNumber alloc]initWithInteger:row*12];
+    }
+    
     [loanParameter setObject: month forKey:@"month"];
     [self.navigationController popViewControllerAnimated:YES];
 }

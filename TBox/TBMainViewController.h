@@ -33,6 +33,9 @@
     //third segment
     
 }
--(IBAction)getResultButton:(id)sender;
+- (IBAction)getResultButton:(id)sender;
++ (double)getGJJCurrentRates:(NSInteger)month;
++ (double)getShangYeCurrentRates:(NSInteger)month style:(NSInteger)style;
+
 
 @end
