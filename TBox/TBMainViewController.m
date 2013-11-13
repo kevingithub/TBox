@@ -485,6 +485,11 @@
             UITableViewCell *cell_0 = [_tableView cellForRowAtIndexPath:index];
             UITextField *field = (UITextField*)[cell_0 viewWithTag:11];
             NSInteger money = [field.text integerValue];
+            if (!money) {
+                //填入金额为空的时候弹提示框
+                return;
+            }
+            [loanParameter setInteger:money forKey:@"loanShangYe"];
             double rates = [TBMainViewController getShangYeCurrentRates:_month style:_rates];
             if (selected == 0)//等额本息
             {
@@ -511,6 +516,9 @@
             UITableViewCell *cell_1 = [_tableView cellForRowAtIndexPath:index_1];
             UITextField *field_1 = (UITextField*)[cell_1 viewWithTag:11];
             NSInteger gjj_money = [field_1.text integerValue];
+            
+            [loanParameter setInteger:gjj_money forKey:@"loanGongJiJin"];
+
             //获取还款方式
             NSIndexPath *index_2 = [NSIndexPath indexPathForRow:2 inSection:0];
             UITableViewCell *cell_2 = [_tableView cellForRowAtIndexPath:index_2];
@@ -543,12 +551,16 @@
             UITableViewCell *cell_1 = [_tableView cellForRowAtIndexPath:index_1];
             UITextField *field_1 = (UITextField*)[cell_1 viewWithTag:11];
             NSInteger sy_money = [field_1.text integerValue];
+            [loanParameter setInteger:sy_money forKey:@"loanShangYe"];
+
             
             //获取公积金贷款金额
             NSIndexPath *index_2 = [NSIndexPath indexPathForRow:1 inSection:0];
             UITableViewCell *cell_2 = [_tableView cellForRowAtIndexPath:index_2];
             UITextField *field_2 = (UITextField*)[cell_2 viewWithTag:11];
             NSInteger gjj_money = [field_2.text integerValue];
+            [loanParameter setInteger:gjj_money forKey:@"loanGongJiJin"];
+
             
             //获取贷款方式
             NSIndexPath *index_3 = [NSIndexPath indexPathForRow:4 inSection:0];

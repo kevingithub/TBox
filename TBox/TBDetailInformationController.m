@@ -28,6 +28,10 @@
     self =[super initWithNibName:nibName bundle:Nil];
     if (self) {
         loanType = type;
+        if (loanType == LoanTypeHunhe_BenJin || loanType == LoanTypeHunhe_BenXi) {
+            loanAmountHunHeLabel.hidden = NO;
+            loanRatesHunHeLabel.hidden = NO;
+        }
     }
     return self;
 }
@@ -38,16 +42,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-     NSNumber *monthValue = (NSNumber*)[loanParameter objectForKey:@"month"];
-     NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
+    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    NSNumber *monthValue = (NSNumber*)[loanParameter objectForKey:@"month"];
+    NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
+    NSNumber *moneyShangYe = (NSNumber *)[loanParameter objectForKey:@"loanShangYe"];
+    NSNumber *moneyGongJiJin = (NSNumber *)[loanParameter objectForKey:@"loanGongJiJin"];
+    
     NSInteger monthInt = [monthValue integerValue];
     NSInteger ratesInt = [ratesValue integerValue];
+    NSInteger moneyIntGongJiJin = [moneyGongJiJin integerValue];
+    NSInteger moneyIntShangYe = [moneyShangYe integerValue];
+    
+    
     
     loanMonthLabel.text = [monthValue stringValue];
     loanRatesLabel.text = [ratesValue stringValue];
-    loanAmountHunHeLabel.hidden = YES;
-    loanRatesHunHeLabel.hidden = YES;
+ 
     double rate ;
     
     switch (loanType) {
@@ -56,34 +66,36 @@
             rate = [TBMainViewController getShangYeCurrentRates:monthInt
                                                           style:ratesInt];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
             break;
         case LoanTypeShangYE_BenXi:
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getShangYeCurrentRates:monthInt
                                                           style:ratesInt];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
             break;
         case LoanTypeGongJiJin_BenJin:
             modeOfRepaymentLabel.text = @"等额本金";
             rate = [TBMainViewController getGJJCurrentRates:
                            [monthValue integerValue]];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin];
             break;
         case LoanTypeGongJiJin_BenXi:
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getGJJCurrentRates:
                            [monthValue integerValue]];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin];
             break;
         case LoanTypeHunhe_BenJin:
             modeOfRepaymentLabel.text = @"等额本金";
-            loanAmountHunHeLabel.hidden = NO;
-            loanRatesHunHeLabel.hidden = NO;
+            loanMonthLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
             break;
         case LoanTypeHunhe_BenXi:
             modeOfRepaymentLabel.text = @"等额本息";
-            loanAmountHunHeLabel.hidden = NO;
-            loanRatesHunHeLabel.hidden = NO;
+            loanMonthLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
             break;
             
         default:
