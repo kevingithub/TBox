@@ -13,32 +13,7 @@
 
 @interface TBMainViewController ()
 {
-    /*
-     2012.07.06
-    
-     一、短期贷款
-     1.六个月（含）5.6%
-     2.六个月至一年（含）6%
-     二、中长期贷款
-     1.一至三年（含）6.15%
-     2.三至五年（含）6.4%
-     3.五年以上 6.55%
-     
-     2012.07.06
-     5年以内(含)
-     4.00
-     
-     5年以上
-     4.50
-     
-     等额本息计算公式：
-     〔贷款本金×月利率×（1＋月利率）＾还款月数〕÷〔（1＋月利率）＾还款月数－1〕
-     等额本金计算公式：
-     每月还款金额 = （贷款本金 ÷ 还款月数）+（本金 — 已归还本金累计额）×每月利率
-     
-     
-     其中＾符号表示乘方。
-    */
+   
 }
 -(IBAction)firstViewButtonAction:(id)sender;
 
@@ -124,7 +99,9 @@
  等额本息计算公式：
  〔贷款本金×月利率×（1＋月利率）＾还款月数〕÷〔（1＋月利率）＾还款月数－1〕
  */
--(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month rates:(double)rates{
+-(float)getBenXiMoney:(NSInteger)money
+                month:(NSInteger)month
+                rates:(double)rates{
 //    float MonthlyRate;
 
             double firstFloat = 1.0,monthRates;
@@ -583,6 +560,7 @@
     }
 
     TBDetailInformationController *targetViewController = [[TBDetailInformationController alloc]initWithNib:@"TBDetailInformationController" type:&type];
+    
     
     }
 

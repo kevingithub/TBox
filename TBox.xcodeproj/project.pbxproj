@@ -11,6 +11,7 @@
 		3C23A2B0181A5712002B17E8 /* TBMonthListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A2AF181A5712002B17E8 /* TBMonthListViewController.m */; };
 		3C8BCB8D182A46370080F119 /* TBDetailInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */; };
 		3C8BCB8E182A46370080F119 /* TBDetailInformationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */; };
+		3CC5D2B4183225DA00516CFB /* TBMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5D2B3183225DA00516CFB /* TBMainVC.m */; };
 		3CE18A2A1819005300B31F54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A291819005300B31F54 /* Foundation.framework */; };
 		3CE18A2C1819005300B31F54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A2B1819005300B31F54 /* CoreGraphics.framework */; };
 		3CE18A2E1819005300B31F54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A2D1819005300B31F54 /* UIKit.framework */; };
@@ -49,6 +50,7 @@
 		3C8BCB8A182A46370080F119 /* TBDetailInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDetailInformationController.h; sourceTree = "<group>"; };
 		3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDetailInformationController.m; sourceTree = "<group>"; };
 		3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBDetailInformationController.xib; sourceTree = "<group>"; };
+		3CC5D2B3183225DA00516CFB /* TBMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMainVC.m; sourceTree = "<group>"; };
 		3CE18A261819005300B31F54 /* TBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE18A291819005300B31F54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3CE18A2B1819005300B31F54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -167,6 +169,7 @@
 		3CE18A481819005300B31F54 /* TBoxTests */ = {
 			isa = PBXGroup;
 			children = (
+				3CC5D2B3183225DA00516CFB /* TBMainVC.m */,
 				3CE18A4E1819005300B31F54 /* TBoxTests.m */,
 				3CE18A491819005300B31F54 /* Supporting Files */,
 			);
@@ -298,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CE18A4F1819005300B31F54 /* TBoxTests.m in Sources */,
+				3CC5D2B4183225DA00516CFB /* TBMainVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
