@@ -23,10 +23,10 @@
     }
     return self;
 }
-- (id)initWithNib:(NSString*)nibName type:(LoanType *)type{
+- (id)initWithNib:(NSString*)nibName type:(LoanType )type{
     self =[super initWithNibName:nibName bundle:Nil];
     if (self) {
-        
+        loanType = type;
     }
     return self;
 }
@@ -36,6 +36,29 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+     NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+     NSNumber *monthValue = (NSNumber*)[loanParameter objectForKey:@"month"];
+     NSNumber *ratesValue = (NSNumber*)[loanParameter objectForKey:@"rates"];
+    
+    loanAmountLabel.text = [monthValue stringValue];
+    loanMonthLabel.text = [ratesValue stringValue];
+    /*
+     LoanTypeShangYE_BenXi = 1,
+     LoanTypeShangYE_BenJi = 2,
+     LoanTypeGongJiJin_BenXi = 3,
+     LoanTypeGongJiJin_BenJin = 4,
+     LoanTypeHunhe_BenXi = 5,
+     LoanTypeHunhe_BenJin = 6
+     */
+    if (loanType == LoanTypeShangYE_BenXi ||
+        loanType == LoanTypeGongJiJin_BenXi ||
+        loanType == LoanTypeHunhe_BenXi) {
+        modeOfRepaymentLabel.text = @"等额本息";
+    }else{
+        modeOfRepaymentLabel.text = @"等额本金";
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning

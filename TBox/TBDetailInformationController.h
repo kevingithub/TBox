@@ -17,10 +17,10 @@
     IBOutlet UILabel *loanRatesHunHeLabel;
     
     IBOutlet UITableView *loanDetailTableView;
-    LoanType *type;
+    LoanType loanType;
     
 }
-- (id)initWithNib:(NSString*)nibName type:(LoanType *)type;
+- (id)initWithNib:(NSString*)nibName type:(LoanType )type;
 
 
 @end

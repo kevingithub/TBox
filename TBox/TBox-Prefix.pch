@@ -15,7 +15,10 @@
     #import <Foundation/Foundation.h>
 #endif
 typedef enum {
-    LoanTypeShangYE = 1,
-    LoanTypeGongJiJin = 2,
-    LoanTypeHunhe = 3
+    LoanTypeShangYE_BenXi ,
+    LoanTypeShangYE_BenJi ,
+    LoanTypeGongJiJin_BenXi ,
+    LoanTypeGongJiJin_BenJin ,
+    LoanTypeHunhe_BenXi ,
+    LoanTypeHunhe_BenJin 
 }LoanType;

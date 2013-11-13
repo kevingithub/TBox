@@ -38,7 +38,7 @@
 {
     [super viewDidLoad];
     _mainSegment.selectedSegmentIndex = 0;
-    type = LoanTypeShangYE;
+    type = LoanTypeShangYE_BenXi;
 //    NSString *monthStr = [NSString stringWithFormat:@"%d",row];
 //    [loanParameter setObject: monthStr forKey:@"month"];
     // Do any additional setup after loading the view from its nib.
@@ -76,15 +76,15 @@
     if(segment.selectedSegmentIndex == 0) {
         NSLog(@"segment selected 0");
         [_tableView reloadData];
-        type = LoanTypeShangYE;
+        type = LoanTypeShangYE_BenXi;
     }else if(segment.selectedSegmentIndex == 1){
         NSLog(@"segment selected 1");
         [_tableView reloadData];
-        type = LoanTypeGongJiJin;
+        type = LoanTypeGongJiJin_BenXi;
     }else if(segment.selectedSegmentIndex == 2){
         NSLog(@"segment selected 2");
         [_tableView reloadData];
-        type = LoanTypeHunhe;
+        type = LoanTypeHunhe_BenXi;
     }
 }
 
@@ -326,10 +326,10 @@
                     return cell;
                     break;
                 case 2:
-                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanRatesCell" owner:self options:nil];
+                    nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"loanPayMethodCell" owner:self options:nil];
                     cell = [nibTableCells objectAtIndex:0];
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+                    UISegmentedControl *segment= (UISegmentedControl*)[cell.contentView viewWithTag:11];
+                    [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
                     return cell;
                     break;
                     
@@ -559,8 +559,8 @@
             
     }
 
-    TBDetailInformationController *targetViewController = [[TBDetailInformationController alloc]initWithNib:@"TBDetailInformationController" type:&type];
-    
+    TBDetailInformationController *targetViewController = [[TBDetailInformationController alloc]initWithNib:@"TBDetailInformationController" type:type];
+    [self.navigationController pushViewController:targetViewController animated:YES];
     
     }
 
