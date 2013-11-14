@@ -16,12 +16,17 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    NSNumber *month = [[NSNumber alloc]initWithInteger:240];
+    NSNumber *rates = [[NSNumber alloc]initWithInteger:0];
+    [loanParameter setObject:month forKey:@"month"];
+    [loanParameter setObject:rates forKey:@"rates"];
 
     TBMainViewController *mainViewController = [[TBMainViewController alloc]initWithNibName:@"TBMainViewController" bundle:Nil];
     UINavigationController *_mainNavigationController = [[UINavigationController alloc]initWithRootViewController:mainViewController];
     
     self.window.rootViewController = _mainNavigationController;
-//    [self.window addSubview:mainViewController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }

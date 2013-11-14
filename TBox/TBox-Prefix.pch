@@ -16,7 +16,7 @@
 #endif
 typedef enum {
     LoanTypeShangYE_BenXi ,
-    LoanTypeShangYE_BenJi ,
+    LoanTypeShangYE_BenJin ,
     LoanTypeGongJiJin_BenXi ,
     LoanTypeGongJiJin_BenJin ,
     LoanTypeHunhe_BenXi ,

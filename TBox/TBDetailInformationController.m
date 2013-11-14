@@ -61,33 +61,41 @@
     double rate ;
     
     switch (loanType) {
-        case LoanTypeShangYE_BenJi:
+        case LoanTypeShangYE_BenJin:{
             modeOfRepaymentLabel.text = @"等额本金";
             rate = [TBMainViewController getShangYeCurrentRates:monthInt
                                                           style:ratesInt];
-            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
+            NSArray *array = (NSArray *)[loanParameter objectForKey:@"sy_bj_paymoney"];
+        }
             break;
         case LoanTypeShangYE_BenXi:
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getShangYeCurrentRates:monthInt
                                                           style:ratesInt];
-            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
+            benXiPayOfMonth = [(NSNumber *)[loanParameter objectForKey:@"sy_bx_paymoney"] doubleValue];
+            allPaymoney = benXiPayOfMonth *monthInt;
+            interest = (allPaymoney - moneyIntShangYe)/10000;
+            
             break;
         case LoanTypeGongJiJin_BenJin:
             modeOfRepaymentLabel.text = @"等额本金";
             rate = [TBMainViewController getGJJCurrentRates:
                            [monthValue integerValue]];
-            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin];
             break;
         case LoanTypeGongJiJin_BenXi:
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getGJJCurrentRates:
                            [monthValue integerValue]];
-            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate,@"%"];
+            loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin];
+            benXiPayOfMonth = [(NSNumber *)[loanParameter objectForKey:@"gjj_bx_paymoney"] doubleValue];
+            interest = (benXiPayOfMonth * monthInt - moneyIntGongJiJin)/10000;
             break;
         case LoanTypeHunhe_BenJin:
             modeOfRepaymentLabel.text = @"等额本金";
@@ -102,7 +110,7 @@
             break;
     }
     
-    
+    [loanDetailTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,19 +144,36 @@
     
     
     // Configure the cell...
+    NSInteger row = [indexPath row];
     
-//    cell.textLabel.text = (NSString*)[ratesArray objectAtIndex:[indexPath row]];
-    
-    // Configure the cell...
-    cell.textLabel.text = @"test";
+    switch (loanType) {
+        case LoanTypeGongJiJin_BenJin:
+            break;
+        case LoanTypeHunhe_BenJin:
+            break;
+        case LoanTypeShangYE_BenJin:
+            switch (row) {
+                case 0:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%.2f",allPaymoney];
+                    break;
+                case 1:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%.2f",interest];
+                    break;
+                case 2:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%.2f",benXiPayOfMonth];
+                    break;
+
+            }
+            break;
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger row = [indexPath row];
-    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
-    NSNumber *rates = [[NSNumber alloc]initWithInteger:row];
-    [loanParameter setObject: rates forKey:@"rates"];
-    [self.navigationController popViewControllerAnimated:YES];
+//    NSInteger row = [indexPath row];
+//    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+//    NSNumber *rates = [[NSNumber alloc]initWithInteger:row];
+//    [loanParameter setObject: rates forKey:@"rates"];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

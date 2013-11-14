@@ -18,6 +18,9 @@
     
     IBOutlet UITableView *loanDetailTableView;
     LoanType loanType;
+    float interest;
+    float benXiPayOfMonth;
+    float allPaymoney;
     
 }
 - (id)initWithNib:(NSString*)nibName type:(LoanType )type;
