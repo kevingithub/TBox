@@ -20,7 +20,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" borderStyle="line" placeholder="10" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wlq-Cv-8Bf" colorLabel="IBBuiltInLabel-Red">
+                    <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" borderStyle="line" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wlq-Cv-8Bf" colorLabel="IBBuiltInLabel-Red">
                         <rect key="frame" x="119" y="7" width="160" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
