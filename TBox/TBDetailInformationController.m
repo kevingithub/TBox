@@ -67,7 +67,7 @@
                                                           style:ratesInt];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
-//            NSArray *array = (NSArray *)[loanParameter objectForKey:@"sy_bj_paymoney"];
+            NSArray *array = (NSArray *)[loanParameter objectForKey:@"sy_bj_paymoney"];
         }
             break;
         case LoanTypeShangYE_BenXi:{

@@ -205,12 +205,12 @@
     NSMutableArray *monthArray;
     
     monthRates =rates/12;
-    averageMonth = money/month;
+    averageMonth = money*10000/month;
     
     monthArray = [[NSMutableArray alloc]initWithCapacity:month];
     for (int i = 1; i < month+1; i ++) {
-        firstFloat = averageMonth +(money-(i-1)*averageMonth)*monthRates;
-        [monthArray addObject:[NSNumber numberWithFloat:firstFloat]];
+        firstFloat = averageMonth +(money*10000-(i-1)*averageMonth)*monthRates;
+        [monthArray addObject:[NSNumber numberWithDouble:firstFloat]];
         
     }
     return monthArray;
