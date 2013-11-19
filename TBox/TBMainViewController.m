@@ -17,7 +17,7 @@
 }
 -(IBAction)firstViewButtonAction:(id)sender;
 
--(float)getBenXiMoney:(NSInteger)money month:(NSInteger)month rates:(double)rates;
+-(double)getBenXiMoney:(NSInteger)money month:(NSInteger)month rates:(double)rates;
 -(NSArray*)getPayMoney:(NSUInteger)money month:(NSInteger)month rates:(double)rates;
 //-(double)getCurrentRates:(NSInteger)year;
 
@@ -140,7 +140,7 @@
  等额本息计算公式：
  〔贷款本金×月利率×（1＋月利率）＾还款月数〕÷〔（1＋月利率）＾还款月数－1〕
  */
--(float)getBenXiMoney:(NSInteger)money
+- (double)getBenXiMoney:(NSInteger)money
                 month:(NSInteger)month
                 rates:(double)rates{
 //    float MonthlyRate;
@@ -189,9 +189,9 @@
 +(double)getGJJCurrentRates:(NSInteger)month
 {
     if(month<=60)
-        return 0.04;
+        return 0.0400;
     else
-        return 0.045;
+        return 0.0450;
 }
 /*
  * method:true
@@ -506,7 +506,7 @@
             }
             else//等额本金
             {
-                NSArray *payArray = [self getPayMoney:money
+               __strong NSArray *payArray = [self getPayMoney:money
                                                 month:_month
                                                 rates:rates];
                 [loanParameter setObject:payArray forKey:@"sy_bj_paymoney"];
@@ -535,14 +535,14 @@
             if (selected ==0) {
                 double gjjPayMoney = [self getBenXiMoney:gjj_money
                                                    month:_month
-                                                   rates:_rates]*10000;
+                                                   rates:rates]*10000;
                 [loanParameter setObject:
                  [[NSNumber alloc]initWithDouble:gjjPayMoney ]
                                   forKey:@"gjj_bx_paymoney"];
                 type = LoanTypeGongJiJin_BenXi;
                 
             } else {
-                NSArray *gjjArray =[self getPayMoney:gjj_money month:_month rates:rates];
+               __strong NSArray *gjjArray =[self getPayMoney:gjj_money month:_month rates:rates];
                 [loanParameter setObject:gjjArray forKey:@"gjj_bj_paymoney"];
                 type = LoanTypeGongJiJin_BenJin;
             }
@@ -591,7 +591,7 @@
                 type = LoanTypeHunhe_BenXi;
                 
             } else {
-                NSArray *hunHeArray = [self GetHunHeMoney:sy_money
+              __strong  NSArray *hunHeArray = [self GetHunHeMoney:sy_money
                                            moneyGongJiJin:gjj_money
                                                     month:_month];
                 [loanParameter setObject:hunHeArray forKey:@"hh_bj_paymoney"];

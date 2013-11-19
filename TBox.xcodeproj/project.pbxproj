@@ -11,6 +11,7 @@
 		3C23A2B0181A5712002B17E8 /* TBMonthListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C23A2AF181A5712002B17E8 /* TBMonthListViewController.m */; };
 		3C8BCB8D182A46370080F119 /* TBDetailInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */; };
 		3C8BCB8E182A46370080F119 /* TBDetailInformationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */; };
+		3CA0A03C183B5E5100EC89FF /* TBDetailBenJinTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CA0A03B183B5E5100EC89FF /* TBDetailBenJinTableViewCell.xib */; };
 		3CC5D2B4183225DA00516CFB /* TBMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5D2B3183225DA00516CFB /* TBMainVC.m */; };
 		3CE18A2A1819005300B31F54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A291819005300B31F54 /* Foundation.framework */; };
 		3CE18A2C1819005300B31F54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE18A2B1819005300B31F54 /* CoreGraphics.framework */; };
@@ -50,6 +51,7 @@
 		3C8BCB8A182A46370080F119 /* TBDetailInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDetailInformationController.h; sourceTree = "<group>"; };
 		3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDetailInformationController.m; sourceTree = "<group>"; };
 		3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBDetailInformationController.xib; sourceTree = "<group>"; };
+		3CA0A03B183B5E5100EC89FF /* TBDetailBenJinTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBDetailBenJinTableViewCell.xib; sourceTree = "<group>"; };
 		3CC5D2B3183225DA00516CFB /* TBMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMainVC.m; sourceTree = "<group>"; };
 		3CE18A261819005300B31F54 /* TBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE18A291819005300B31F54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -151,6 +153,7 @@
 				3C8BCB8A182A46370080F119 /* TBDetailInformationController.h */,
 				3C8BCB8B182A46370080F119 /* TBDetailInformationController.m */,
 				3C8BCB8C182A46370080F119 /* TBDetailInformationController.xib */,
+				3CA0A03B183B5E5100EC89FF /* TBDetailBenJinTableViewCell.xib */,
 			);
 			path = TBox;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				3CE18A5C1819013900B31F54 /* TBMainViewController.xib in Resources */,
 				3CEC3D83181F685D006E6D6F /* loanPayMethodCell.xib in Resources */,
+				3CA0A03C183B5E5100EC89FF /* TBDetailBenJinTableViewCell.xib in Resources */,
 				3CEC3D7F181F6650006E6D6F /* loanYearCell.xib in Resources */,
 				3CEC3D7D181F5DC4006E6D6F /* loanCountCell.xib in Resources */,
 				3CEC3D81181F680B006E6D6F /* loanRatesCell.xib in Resources */,

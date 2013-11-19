@@ -67,19 +67,22 @@
                                                           style:ratesInt];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
-            NSArray *array = (NSArray *)[loanParameter objectForKey:@"sy_bj_paymoney"];
+//            NSArray *array = (NSArray *)[loanParameter objectForKey:@"sy_bj_paymoney"];
         }
             break;
-        case LoanTypeShangYE_BenXi:
+        case LoanTypeShangYE_BenXi:{
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getShangYeCurrentRates:monthInt
                                                           style:ratesInt];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntShangYe];
-            benXiPayOfMonth = [(NSNumber *)[loanParameter objectForKey:@"sy_bx_paymoney"] doubleValue];
-            allPaymoney = benXiPayOfMonth *monthInt;
-            interest = (allPaymoney - moneyIntShangYe)/10000;
+            NSNumber *payMoneyBenXi =(NSNumber *)[loanParameter objectForKey:@"sy_bx_paymoney"];
+            benXiPayOfMonth = [payMoneyBenXi doubleValue];
+            allPaymoney = benXiPayOfMonth *monthInt/10000;
+            interest = (allPaymoney - moneyIntShangYe);
             
+            
+        }
             break;
         case LoanTypeGongJiJin_BenJin:
             modeOfRepaymentLabel.text = @"等额本金";
@@ -88,22 +91,30 @@
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin];
             break;
-        case LoanTypeGongJiJin_BenXi:
+        case LoanTypeGongJiJin_BenXi:{
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getGJJCurrentRates:
                            [monthValue integerValue]];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin];
-            benXiPayOfMonth = [(NSNumber *)[loanParameter objectForKey:@"gjj_bx_paymoney"] doubleValue];
-            interest = (benXiPayOfMonth * monthInt - moneyIntGongJiJin)/10000;
+            NSNumber *paymoneyGongJiJinBenXi =(NSNumber *)[loanParameter objectForKey:@"gjj_bx_paymoney"];
+            benXiPayOfMonth = [paymoneyGongJiJinBenXi doubleValue];
+            allPaymoney = benXiPayOfMonth *monthInt/10000;
+            interest = (allPaymoney - moneyIntShangYe);
+
+        }
             break;
         case LoanTypeHunhe_BenJin:
             modeOfRepaymentLabel.text = @"等额本金";
-            loanMonthLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
+            rate = [TBMainViewController getGJJCurrentRates:
+                    [monthValue integerValue]];
+            
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
+            
             break;
         case LoanTypeHunhe_BenXi:
             modeOfRepaymentLabel.text = @"等额本息";
-            loanMonthLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
             break;
             
         default:
@@ -138,8 +149,12 @@
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
+    if (!cell && loanType ==LoanTypeGongJiJin_BenXi && loanType == LoanTypeShangYE_BenXi && loanType== LoanTypeHunhe_BenXi) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    if (!cell && loanType == LoanTypeGongJiJin_BenJin && loanType == LoanTypeShangYE_BenJin && loanType == LoanTypeHunhe_BenJin) {
+        NSArray * nibTableCells = [[NSBundle mainBundle] loadNibNamed:@"TBDetailBenJinTableViewCell" owner:self options:nil];
+        cell = [nibTableCells objectAtIndex:0];
     }
     
     
@@ -147,24 +162,57 @@
     NSInteger row = [indexPath row];
     
     switch (loanType) {
-        case LoanTypeGongJiJin_BenJin:
-            break;
-        case LoanTypeHunhe_BenJin:
-            break;
-        case LoanTypeShangYE_BenJin:
+        case LoanTypeGongJiJin_BenXi:
             switch (row) {
                 case 0:
-                    cell.textLabel.text = [NSString stringWithFormat:@"%.2f",allPaymoney];
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"还款总额",allPaymoney,@"万元"];
                     break;
                 case 1:
-                    cell.textLabel.text = [NSString stringWithFormat:@"%.2f",interest];
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"利息总额",interest,@"万元"];
                     break;
                 case 2:
-                    cell.textLabel.text = [NSString stringWithFormat:@"%.2f",benXiPayOfMonth];
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"每月还款",benXiPayOfMonth,@"元"];
+                    break;
+                    
+            }
+            break;
+        case LoanTypeGongJiJin_BenJin:
+            
+            break;
+            
+        case LoanTypeHunhe_BenJin:
+            break;
+        case LoanTypeHunhe_BenXi:
+            break;
+        case LoanTypeShangYE_BenXi:
+            switch (row) {
+                case 0:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"还款总额",allPaymoney,@"万元"];
+                    break;
+                case 1:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"利息总额",interest,@"万元"];
+                    break;
+                case 2:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"每月还款",benXiPayOfMonth,@"元"];
                     break;
 
             }
             break;
+        case LoanTypeShangYE_BenJin:
+            switch (row) {
+                case 0:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"还款总额",allPaymoney,@"万元"];
+                    break;
+                case 1:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"利息总额",interest,@"万元"];
+                    break;
+                case 2:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"每月还款",benXiPayOfMonth,@"元"];
+                    break;
+                    
+            }
+            break;
+            //TBDetailBenJinTableViewCell
     }
     return cell;
 }
