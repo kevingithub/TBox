@@ -203,6 +203,7 @@
                  rates:(double)rates{
     double firstFloat = 1.0,monthRates,averageMonth;
     NSMutableArray *monthArray;
+    double allPayMoney = 0.0;
     
     monthRates =rates/12;
     averageMonth = money*10000/month;
@@ -210,9 +211,12 @@
     monthArray = [[NSMutableArray alloc]initWithCapacity:month];
     for (int i = 1; i < month+1; i ++) {
         firstFloat = averageMonth +(money*10000-(i-1)*averageMonth)*monthRates;
+        allPayMoney+=firstFloat;
         [monthArray addObject:[NSNumber numberWithDouble:firstFloat]];
         
     }
+    NSUserDefaults *loanParameter = [NSUserDefaults standardUserDefaults];
+    [loanParameter setDouble:allPayMoney forKey:@"benjin_allPayMoney"];
     return monthArray;
 }
 //获取混合等额本金

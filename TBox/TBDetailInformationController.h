@@ -21,6 +21,13 @@
     float interest;
     float benXiPayOfMonth;
     float allPaymoney;
+    //本金还款
+    NSNumber *firstMonthPayMoney;
+    NSNumber *secondMonthPayMoney;
+    NSNumber *theN1MonthPayMoney;
+    NSNumber *theLastMonthPayMoney;
+    NSInteger count;
+    
     
 }
 - (id)initWithNib:(NSString*)nibName type:(LoanType )type;
