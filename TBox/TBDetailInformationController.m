@@ -35,7 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     if (loanType == LoanTypeHunhe_BenJin || loanType == LoanTypeHunhe_BenXi) {
-        loanAmountHunHeLabel.hidden = NO;
+//        loanAmountHunHeLabel.hidden = NO;
         loanRatesHunHeLabel.hidden = NO;
     }
 }
@@ -132,8 +132,8 @@
             loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin ];
             rate_hunhe =[TBMainViewController getShangYeCurrentRates:monthInt
                                                                style:ratesInt];
-            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin ];
-            loanAmountHunHeLabel.text = [NSString stringWithFormat:@"商业贷款：%d",moneyIntShangYe];
+            loanAmountLabel.text = [NSString stringWithFormat:@"%d",moneyIntGongJiJin +moneyIntShangYe];
+//            loanAmountHunHeLabel.text = [NSString stringWithFormat:@"商业贷款：%d",moneyIntShangYe];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanRatesHunHeLabel.text = [NSString stringWithFormat:@"商业贷款利率：%.2f%@",rate_hunhe*100,@"%"];
             
