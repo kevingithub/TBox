@@ -124,7 +124,7 @@
 
         }
             break;
-        case LoanTypeHunhe_BenJin:
+        case LoanTypeHunhe_BenJin:{
             modeOfRepaymentLabel.text = @"等额本金";
             rate = [TBMainViewController getGJJCurrentRates:
                     [monthValue integerValue]];
@@ -136,10 +136,19 @@
             loanAmountHunHeLabel.text = [NSString stringWithFormat:@"商业贷款：%d",moneyIntShangYe];
             loanRatesLabel.text = [NSString stringWithFormat:@"%.2f%@",rate*100,@"%"];
             loanRatesHunHeLabel.text = [NSString stringWithFormat:@"商业贷款利率：%.2f%@",rate_hunhe*100,@"%"];
-        
             
+            NSArray *array = (NSArray *)[loanParameter objectForKey:@"hh_bj_paymoney"];
+            count = [array count];
+            firstMonthPayMoney = (NSNumber*)[array objectAtIndex:0];
+            secondMonthPayMoney = (NSNumber*)[array objectAtIndex:1];
+            theN1MonthPayMoney = (NSNumber*)[array objectAtIndex:count -2];
+            theLastMonthPayMoney = (NSNumber*)[array objectAtIndex:count -1];
+            allPaymoney = [loanParameter doubleForKey:@"hunhe_benjin"]/10000;
+            interest = allPaymoney - moneyIntShangYe - moneyIntGongJiJin;
+        
+        }
             break;
-        case LoanTypeHunhe_BenXi:
+        case LoanTypeHunhe_BenXi:{
             modeOfRepaymentLabel.text = @"等额本息";
             rate = [TBMainViewController getGJJCurrentRates:
                     [monthValue integerValue]];
@@ -151,12 +160,12 @@
             loanRatesHunHeLabel.text = [NSString stringWithFormat:@"商业贷款利率：%.2f%@",rate_hunhe*100,@"%"];
             
             
-//            NSNumber *paymoneyHunheBenXi =(NSNumber *)[loanParameter objectForKey:@"hh_bj_paymoney"];
-//            benXiPayOfMonth = [paymoneyGongJiJinBenXi doubleValue];
-//            allPaymoney = benXiPayOfMonth *monthInt/10000;
-//            interest = (allPaymoney - moneyIntShangYe);
+            NSNumber *paymoneyHunheBenXi =(NSNumber *)[loanParameter objectForKey:@"hh_paymoney"];
+            benXiPayOfMonth = [paymoneyHunheBenXi doubleValue];
+            allPaymoney = benXiPayOfMonth *monthInt/10000;
+            interest = allPaymoney - moneyIntShangYe - moneyIntGongJiJin;
             
-            
+        }
             break;
             
         default:
@@ -260,6 +269,24 @@
             break;
             
         case LoanTypeHunhe_BenJin:
+            switch (row) {
+                case 0:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"还款总额",allPaymoney,@"万元"];
+                    break;
+                case 1:
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@:%.2f %@",@"利息总额",interest,@"万元"];
+                    break;
+                case 2:
+                    firstLabel.text = [NSString stringWithFormat:@"%.2f",[firstMonthPayMoney doubleValue]];
+                    secondLabel.text = [NSString stringWithFormat:@"%.2f",[secondMonthPayMoney doubleValue]];
+                    n1Label.text = [NSString stringWithFormat:@"%.2f",[theN1MonthPayMoney doubleValue]];
+                    lastLabel.text = [NSString stringWithFormat:@"%.2f",[theLastMonthPayMoney doubleValue]];
+                    
+                    n1MonthLabel.text = [NSString stringWithFormat:@"%@%d%@",@"第",count-1,@"月"];
+                    lastMonthLabel.text = [NSString stringWithFormat:@"%@%d%@",@"第",count,@"月"];
+                    break;
+                    
+            }
             break;
         case LoanTypeHunhe_BenXi:
             switch (row) {

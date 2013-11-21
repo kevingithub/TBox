@@ -227,6 +227,7 @@
     double averageGongJiJin,averageShangYe;
     double monthRatesGongJiJin,monthRatesShangYe;
     NSMutableArray * monthArray;
+    double allMoney = 0.0;
     
     monthArray = [[NSMutableArray alloc]initWithCapacity:month];
     gongJiJinRates = [TBMainViewController getGJJCurrentRates:month];
@@ -235,23 +236,25 @@
     NSInteger styleRate = [ratesValue integerValue];
     shangYeRates = [TBMainViewController getShangYeCurrentRates:month style:styleRate];
     
-    averageGongJiJin = moneyGongJiJin/month;
-    averageShangYe = moneyShangYe/month;
+    averageGongJiJin = moneyGongJiJin*10000/month;
+    averageShangYe = moneyShangYe*10000/month;
     monthRatesGongJiJin = gongJiJinRates/12;
     monthRatesShangYe = shangYeRates/12;
     
     for (int i = 1; i <month +1; i ++) {
         tempRatesShangYe = averageShangYe +
-                    (moneyShangYe-(i-1)*averageShangYe) * monthRatesShangYe;
+                    (moneyShangYe*10000-(i-1)*averageShangYe) * monthRatesShangYe;
         tempRatesGongJiJin = averageGongJiJin +
-        (moneyGongJiJin -(i-1)*averageGongJiJin)*monthRatesGongJiJin;
+        (moneyGongJiJin*10000 -(i-1)*averageGongJiJin)*monthRatesGongJiJin;
         
         [monthArray addObject:
          [NSNumber numberWithDouble:
           (tempRatesGongJiJin+tempRatesShangYe)]];
+        allMoney +=tempRatesGongJiJin+tempRatesShangYe;
+        
         
     }
-    
+    [loanParameter setDouble:allMoney forKey:@"hunhe_benjin"];
     
     return monthArray;
 }
